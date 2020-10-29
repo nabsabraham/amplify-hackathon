@@ -1,24 +1,17 @@
-  <!DOCTYPE html>
-  <html lang="en">
-    <head>
-      <meta charset="utf-8">
-      <title> FreshenAI</title>
-      <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-      <script src="http://d3js.org/d3.v3.min.js"></script>
-    </head>
-    <body>
-      <h3> Prediction: {{ pred }} </h3>
-      <br><br>
-      <img src={{imgpath}}>
-      <script>
+{% extends 'base.html' %}
 
-      </script>
+{% block title %} FreshenAI {% endblock title %}
 
-    </body>
-  </html>
+{% block content %}
+    <div class="container">
+          <h3> Cull Alert </h3>
+    </div>
 
-  <form action="/upload" method="POST">
-     <button type="load" class="btn btn-primary">Load</button>
-     <button type="submit" class="btn btn-primary">Analyze</button>
+  <br/>
+  <br/>
+  <div class="container">
+    <button type="submit" class="btn btn-secondary"> Upload </button>
+    <button type="submit" class="btn btn-secondary"> Analyze </button>
+  </div>
 
-</form>
+{% endblock %}
