@@ -3,7 +3,7 @@ import cv2
 import json
 import requests
 import numpy as np
-from keras.preprocessing import image
+#from keras.preprocessing import image
 
 from werkzeug.utils import secure_filename
 from flask import Flask, render_template, url_for, request, redirect, abort
@@ -25,7 +25,14 @@ def upload_files():
         path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
         uploaded_file.save(path)
     image_url = url_for('static', filename='uploads/'+str(filename))
-    img = image.load_img(os.path.join(app.config['UPLOAD_FOLDER'], filename), (300,300))
+    #img = image.load_img(os.path.join(app.config['UPLOAD_FOLDER'], filename), (300,300))
+    img = cv2.imread(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+
+    #print(type(img))
+    #input_data = {'data': img.tolist()}
+    #headers = {'Content-Type': 'application/json'}
+    #response = requests.post(url, data=json.dumps(input_data), headers=headers)
+    #return np.round(np.array(response.json())[0],2) * 100
 
     cull_status = 'N/A'
     cull_location = 'N/A'
@@ -68,6 +75,7 @@ def waste():
 
 def inference(img):
     url = 'http://b790f0dc-11c1-41fb-8ccd-7f1f67567d49.westus.azurecontainer.io/score'
+    print(img.shape)
     input_data = {'data': img.tolist()}
     headers = {'Content-Type': 'application/json'}
     response = requests.post(url, data=json.dumps(input_data), headers=headers)
