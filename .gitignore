@@ -1,1 +1,9 @@
+mid_life_produce/
 .DS_Store
+*.h5
+*.pkl
+venv/*
+env/*
+app/env/*
+app/static/uploads/*
+static/uploads/*

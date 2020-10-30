@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{% block title %} FreshenAI {% endblock title %}
+
+{% block content %}
+<style>
+.myDiv {
+  border: 5px outset red;
+  background-color: lightblue;
+  text-align: center;
+}
+</style>
+<div class="container" xmlns="http://www.w3.org/1999/html">
+        <br/>
+    </div>
+
+  <br/>
+  <br/>
+    <div class="row">
+         <div class="col-sm-6">
+            <form class="md-form" action="/" enctype="multipart/form-data" method="POST">
+                <input type="file" name="file" accept=".jpg,.png">
+                <button type="submit" class="btn btn-secondary" name="upload"> Upload </button>
+            </form>
+          </div>
+      <div class="col-sm-5">
+          <h3> Produce Report </h3>
+         <!-- <button type="submit" class="btn btn-secondary" name="analyze" onclick="myFunction()"> Analyze </button>-->
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <div class="col">
+
+            <div class="container p-3 my-3 border">
+            {% if filename %}
+                <img src="{{ image_url }}" style='height: 100%; width: 100%; object-fit: contain'/>
+                <p> Read {{ filename }} from {{ image_url }} </p>
+            {% else %}
+                <img src="https://mdbootstrap.com/img/Photos/Others/placeholder.jpg" class="img-fluid" alt="example placeholder">
+            {% endif %}
+            </div>
+        </div>
+        <div class="col">
+            <br/>
+            <br/>
+            <div class="container-fluid">
+                <div class="table-responsive">
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <th>Produce</th>
+                            <td id="produce"> {{ produce }} </td>
+                        </tr>
+                        <tr>
+                            <th>Article</th>
+                            <td id="article"> {{ article }} </td>
+                        </tr>
+                        <tr>
+                            <th>Freshness Status</th>
+                            <td id="fresh_status"> {{ fresh_status }} </td>
+                        </tr>
+                        <tr>
+                            <th> Score </th>
+                            <td id="fresh_score"> {{ score }} </td>
+                        </tr>
+                        <tr>
+                            <th>Cull Alert</th>
+                            <td id="cull_alert"> {{ cull_status }} </td>
+                        </tr>
+                            <th>Cull Location </th>
+                            <td id="cull_loc"> {{ cull_location }} </td>
+                        </tr>
+                    </tbody>
+                  </table>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+
+<script>
+
+
+</script>
+
+{% endblock %}
