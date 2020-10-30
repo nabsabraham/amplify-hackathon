@@ -3,32 +3,85 @@
 {% block title %} FreshenAI {% endblock title %}
 
 {% block content %}
-    <div class="container">
-          <h3> Cull Alert </h3>
+
+<div class="container" xmlns="http://www.w3.org/1999/html">
+        <br/>
     </div>
 
   <br/>
   <br/>
-      <!--Grid column-->
-  <div class="col-md-6 mb-4">
+    <div class="row">
+         <div class="col-sm-6">
+            <form class="md-form" action="/" enctype="multipart/form-data" method="POST">
+                <input type="file" name="file" accept=".jpg,.png">
+                <button type="submit" class="btn btn-secondary" name="upload"> Upload </button>
+            </form>
+          </div>
+      <div class="col-sm-6">
+          <button type="submit" class="btn btn-secondary" name="analyze" onclick="myFunction()"> Analyze </button>
+      </div>
+    </div>
 
-    <form class="md-form" action="/" enctype="multipart/form-data" method="POST">
-      <p><input type="file" name="file" accept=".jpg,.png"></p>
+    <div class="container">
+      <div class="row">
+        <div class="col">
 
-        <div class="container">
-         <button type="submit" class="btn btn-secondary" name="upload"> Upload </button>
+            <div class="container p-3 my-3 border">
+            {% if filename %}
+                <img src="{{ image_url }}" style='height: 100%; width: 100%; object-fit: contain'/>
+            {% else %}
+                <img src="https://mdbootstrap.com/img/Photos/Others/placeholder.jpg" class="img-fluid" alt="example placeholder">
+            {% endif %}
+            </div>
         </div>
+        <div class="col">
+            <br/>
+            <br/>
+            <div class="container-fluid">
+                <div class="table-responsive">
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <th>Produce</th>
+                            <td id="produce"></td>
+                        </tr>
+                        <tr>
+                            <th>Article</th>
+                            <td id="article"></td>
+                        </tr>
+                        <tr>
+                            <th>Freshness Status</th>
+                            <td id="article"></td>
+                        </tr>
+                        <tr>
+                            <th> Score </th>
+                            <td id="fresh_score"></td>
+                        </tr>
+                        <tr>
+                            <th>Cull Alert</th>
+                            <td id="cull_alert"></td>
+                        </tr>
+                            <th>Cull Location </th>
+                            <td id="cull_loc"> </td>
+                        </tr>
+                    </tbody>
+                  </table>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
 
-        {% if filename %}
-	    <div>
-            <p> Thanks for uploading {{ filename }} </p>
-            <p> looking in {{image_url}} </p>
-		<img src="{{ image_url }}">
-	    </div>
-        {% endif %}
-    </form>
+<script>
+function myFunction() {
+  document.getElementById("produce").innerHTML = "BANANA";
+  document.getElementById("article").innerHTML = "MCH003";
+  document.getElementById("cull_alert").innerHTML = "COLLEAGUE TO CULL";
+  document.getElementById("cull_loc").innerHTML = "SHELF 3 BIN 1";
+  document.getElementById("fresh_status").innerHTML = "2 DAYS TO END OF LIFE";
+  document.getElementById("fresh_score").innerHTML = "99%";
 
-  </div>
-
+}
+</script>
 
 {% endblock %}
