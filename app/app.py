@@ -1,8 +1,10 @@
 import os
-import cv2
+#import cv2
 import json
 import requests
 import numpy as np
+from PIL import Image
+
 #from keras.preprocessing import image
 
 from werkzeug.utils import secure_filename
@@ -26,8 +28,9 @@ def upload_files():
         uploaded_file.save(path)
     image_url = url_for('static', filename='uploads/'+str(filename))
     #img = image.load_img(os.path.join(app.config['UPLOAD_FOLDER'], filename), (300,300))
-    img = cv2.imread(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-
+    #img = cv2.imread(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+    pic = Image.open(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+    img = np.array(pic.getdata()).reshape(pic.size[0], pic.size[1], 3)
     #print(type(img))
     #input_data = {'data': img.tolist()}
     #headers = {'Content-Type': 'application/json'}
