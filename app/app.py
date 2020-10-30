@@ -29,6 +29,10 @@ def upload_files():
 def recommend():
     return render_template('recommender.html')
 
+@app.route("/waste-db")
+def waste():
+    return render_template('waste.html')
+
 
 if __name__ == "__main__":
     app.run()
