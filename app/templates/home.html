@@ -3,7 +3,13 @@
 {% block title %} FreshenAI {% endblock title %}
 
 {% block content %}
-
+<style>
+.myDiv {
+  border: 5px outset red;
+  background-color: lightblue;
+  text-align: center;
+}
+</style>
 <div class="container" xmlns="http://www.w3.org/1999/html">
         <br/>
     </div>
@@ -17,8 +23,9 @@
                 <button type="submit" class="btn btn-secondary" name="upload"> Upload </button>
             </form>
           </div>
-      <div class="col-sm-6">
-          <button type="submit" class="btn btn-secondary" name="analyze" onclick="myFunction()"> Analyze </button>
+      <div class="col-sm-5">
+          <h3> Produce Report </h3>
+         <!-- <button type="submit" class="btn btn-secondary" name="analyze" onclick="myFunction()"> Analyze </button>-->
       </div>
     </div>
 
@@ -29,6 +36,7 @@
             <div class="container p-3 my-3 border">
             {% if filename %}
                 <img src="{{ image_url }}" style='height: 100%; width: 100%; object-fit: contain'/>
+                <p> Read {{ filename }} from {{ image_url }} </p>
             {% else %}
                 <img src="https://mdbootstrap.com/img/Photos/Others/placeholder.jpg" class="img-fluid" alt="example placeholder">
             {% endif %}
@@ -43,26 +51,26 @@
                         <tbody>
                         <tr>
                             <th>Produce</th>
-                            <td id="produce"></td>
+                            <td id="produce"> {{ produce }} </td>
                         </tr>
                         <tr>
                             <th>Article</th>
-                            <td id="article"></td>
+                            <td id="article"> {{ article }} </td>
                         </tr>
                         <tr>
                             <th>Freshness Status</th>
-                            <td id="fresh_status"></td>
+                            <td id="fresh_status"> {{ fresh_status }} </td>
                         </tr>
                         <tr>
                             <th> Score </th>
-                            <td id="fresh_score"></td>
+                            <td id="fresh_score"> {{ score }} </td>
                         </tr>
                         <tr>
                             <th>Cull Alert</th>
-                            <td id="cull_alert"></td>
+                            <td id="cull_alert"> {{ cull_status }} </td>
                         </tr>
                             <th>Cull Location </th>
-                            <td id="cull_loc"> </td>
+                            <td id="cull_loc"> {{ cull_location }} </td>
                         </tr>
                     </tbody>
                   </table>
@@ -73,15 +81,8 @@
     </div>
 
 <script>
-function myFunction() {
-  document.getElementById("produce").innerHTML = "BANANA";
-  document.getElementById("article").innerHTML = "MCH003";
-  document.getElementById("cull_alert").innerHTML = "COLLEAGUE TO CULL";
-  document.getElementById("cull_loc").innerHTML = "SHELF 3 BIN 1";
-  document.getElementById("fresh_status").innerHTML = "2 DAYS TO END OF LIFE";
-  document.getElementById("fresh_score").innerHTML = "99%";
 
-}
+
 </script>
 
 {% endblock %}
