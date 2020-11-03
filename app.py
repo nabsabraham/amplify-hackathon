@@ -27,28 +27,27 @@ def upload_files():
         path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
         uploaded_file.save(path)
     image_url = url_for('static', filename='uploads/'+str(filename))
-    #img = image.load_img(os.path.join(app.config['UPLOAD_FOLDER'], filename), (300,300))
-    #img = cv2.imread(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+
+    image_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+    image_data = open(image_path, "rb").read()
+
     pic = Image.open(os.path.join(app.config['UPLOAD_FOLDER'], filename))
     img = np.array(pic.getdata()).reshape(pic.size[0], pic.size[1], 3)
-    #print(type(img))
-    #input_data = {'data': img.tolist()}
-    #headers = {'Content-Type': 'application/json'}
-    #response = requests.post(url, data=json.dumps(input_data), headers=headers)
-    #return np.round(np.array(response.json())[0],2) * 100
 
     cull_status = 'N/A'
     cull_location = 'N/A'
     score = 100
+    produce = get_produce(image_data)
+    print(produce)
 
     if filename[3] == 'O':
-        produce = 'ORANGE'
+        #roduce = 'ORANGE'
         article = 'MCH033'
     elif filename[3] == 'B':
-        produce = 'BANANA'
+        #produce = 'BANANA'
         article = 'MCH034'
     else:
-        produce = 'APPLE'
+        #produce = 'APPLE'
         article = 'MCH013'
 
     if filename[0:4] == 'MDLO':
@@ -83,6 +82,22 @@ def inference(img):
     headers = {'Content-Type': 'application/json'}
     response = requests.post(url, data=json.dumps(input_data), headers=headers)
     return np.round(np.array(response.json())[0],2) * 100
+
+def get_produce(img):
+    subscription_key = 'e6a8b2a993a04ec5aee19d8d890911ab'
+    endpoint = 'https://nabila-cv.cognitiveservices.azure.com/'
+    analyze_url = endpoint + "vision/v3.1/analyze"
+
+    headers = {'Ocp-Apim-Subscription-Key': subscription_key,
+               'Content-Type': 'application/octet-stream'}
+    params = {'visualFeatures': 'Categories,Description,Color'}
+
+    response = requests.post(
+        analyze_url, headers=headers, params=params, data=img)
+
+    analysis = response.json()
+
+    return (analysis['description']['tags'][0]).upper()
 
 if __name__ == "__main__":
     app.run()
