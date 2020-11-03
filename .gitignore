@@ -5,5 +5,7 @@ mid_life_produce/
 venv/*
 env/*
 app/env/*
-app/static/uploads/*
-static/uploads/*
+app/static/uploads/*.jpg
+__pycache__/
+.ipynb_checkpoints/
+.idea/*
