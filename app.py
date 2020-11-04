@@ -55,16 +55,12 @@ def upload_files():
     rand_num = np.random.randint(2,7)
     fresh_status = str(np.random.randint(1,7)) + ' DAYS TO END-OF-LIFE'
     score = np.random.randint(70,99)
-    if score > 95:
-        fresh_status = 'SPOILED'
-        cull_status = 'COLLEAGUE TO CULL'
-        cull_location = 'SHELF 3, BIN 2'
-    else:
-        fresh_status = 'PRIME'
 
     if rand_num < 3:
         cull_status = 'COLLEAGUE TO CULL' if score > 80 else "N/A"
         cull_location = 'SHELF 1, BIN 1'
+    else:
+        fresh_status = 'PRIME'
 
     return render_template('home.html', filename=filename, image_url=image_url,
                            produce=produce, article=article, score=(str(score) + '%'),
