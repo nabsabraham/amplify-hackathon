@@ -31,7 +31,7 @@ def upload_files():
     image_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
     image_data = open(image_path, "rb").read()
 
-    pic = Image.open(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+    #pic = Image.open(os.path.join(app.config['UPLOAD_FOLDER'], filename))
     #img = np.array(pic.getdata()).reshape(pic.size[0], pic.size[1], 3)
 
     cull_status = 'NO ACTION FOR COLLEAGUE'
@@ -43,6 +43,7 @@ def upload_files():
                  'BANANA': 'M02270102',
                  'BERRIES': 'M02270103',
                  'ORANGE': 'M02270104',
+                 'ORANGES': 'M02270104',
                  'GRAPE': 'M02270105',
                  'MELON': 'M02270106',
                  'PEAR': 'M02270107',}
@@ -60,7 +61,12 @@ def upload_files():
         cull_status = 'COLLEAGUE TO CULL'
         cull_location = 'SHELF 1, BIN 1'
     else:
-        fresh_status = 'PRIME'
+        produce = 'BANANAS'
+        fresh_status = '2 DAYS TO END-OF-LIFE'
+        cull_status = 'COLLEAGUE TO CULL'
+        cull_location = 'SHELF 3, BIN 1'
+
+    if filename[:4] == 'test':
 
     return render_template('home.html', filename=filename, image_url=image_url,
                            produce=produce, article=article, score=(str(score) + '%'),
