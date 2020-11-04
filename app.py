@@ -57,7 +57,7 @@ def upload_files():
     score = np.random.randint(70,99)
 
     if rand_num < 3:
-        cull_status = 'COLLEAGUE TO CULL' if score > 80 else "N/A"
+        cull_status = 'COLLEAGUE TO CULL'
         cull_location = 'SHELF 1, BIN 1'
     else:
         fresh_status = 'PRIME'
