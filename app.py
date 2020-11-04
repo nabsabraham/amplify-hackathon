@@ -34,34 +34,37 @@ def upload_files():
     pic = Image.open(os.path.join(app.config['UPLOAD_FOLDER'], filename))
     img = np.array(pic.getdata()).reshape(pic.size[0], pic.size[1], 3)
 
-    cull_status = 'N/A'
-    cull_location = 'N/A'
-    score = 100
+    cull_status = 'NO ACTION FOR COLLEAGUE'
+    cull_location = 'NO ACTION FOR COLLEAGUE'
     produce = get_produce(image_data)
     print(produce)
 
-    if filename[3] == 'O':
-        #roduce = 'ORANGE'
-        article = 'MCH033'
-    elif filename[3] == 'B':
-        #produce = 'BANANA'
-        article = 'MCH034'
-    else:
-        #produce = 'APPLE'
-        article = 'MCH013'
+    mch_dict = {'APPLE': 'M02270101',
+                 'BANANA': 'M02270102',
+                 'BERRIES': 'M02270103',
+                 'ORANGE': 'M02270104',
+                 'GRAPE': 'M02270105',
+                 'MELON': 'M02270106',
+                 'PEAR': 'M02270107',}
 
-    if filename[0:4] == 'MDLO':
-        fresh_status = '6 DAYS TO END-OF-LIFE'
-    elif filename[0:4] == 'MDLB':
-        fresh_status = '3 DAYS TO END-OF-LIFE'
-    elif filename[0:4] == 'MDLA':
-        fresh_status = '7 DAYS TO END-OF-LIFE'
+    try:
+        article = mch_dict[produce.upper()]
+    except:
+        article = 'M02270110'
+
+    rand_num = np.random.randint(2,7)
+    fresh_status = str(np.random.randint(1,7)) + ' DAYS TO END-OF-LIFE'
+    score = np.random.randint(70,99)
+    if score > 95:
+        fresh_status = 'SPOILED'
+        cull_status = 'COLLEAGUE TO CULL'
+        cull_location = 'SHELF 3, BIN 2'
     else:
-        img = np.array(img)
-        score = inference(img)
-        fresh_status = 'SPOILED' if score > 80 else 'PRIME'
+        fresh_status = 'PRIME'
+
+    if rand_num < 3:
         cull_status = 'COLLEAGUE TO CULL' if score > 80 else "N/A"
-        cull_location = 'SHELF 3, BIN 2' if cull_status != 'N/A' else "N/A"
+        cull_location = 'SHELF 1, BIN 1'
 
     return render_template('home.html', filename=filename, image_url=image_url,
                            produce=produce, article=article, score=(str(score) + '%'),
