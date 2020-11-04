@@ -5,4 +5,86 @@
     <div class="container">
           <h3> Recommendation Engine </h3>
     </div>
+    <div class="col-sm-6">
+        <br/>
+        <br/>
+        <button class="btn btn-secondary" onclick="myFunction()"> View Recommendations </button>
+
+    </div>
+    <script>
+        function OnRecommend() {
+            document.getElementById("rec_text").innerHTML = " Optimal recommendation: MAKE STRAWBERRY-BANANA SHAKES THIS WEEKEND! ";
+            }
+
+        function toggleLoader() {
+            var x = document.getElementById("loader");
+            if (x.style.display === "none") {
+                x.style.display = "block";
+            } else {
+                x.style.display = "none";
+            }
+        }
+    </script>
+    <script>
+    function myFunction() {
+        document.getElementById("rec1").innerHTML = "STRAWBERRY-BANANA SHAKES";
+        document.getElementById("items1").innerHTML = "Strawberries ; Bananas";
+
+
+        document.getElementById("rec2").innerHTML = "BANANA BREAD";
+        document.getElementById("items2").innerHTML = "Bananas";
+        document.getElementById("recipe1").innerHTML = "See Recipe";
+        document.getElementById("recipe2").innerHTML = "See Recipe";
+
+    }
+    </script>
+    <div class="col-sm-4">
+        <h4 id="demo"> </h4>
+
+    </div>
+        <div class="col-sm-6">
+            <br/>
+            <br/>
+            <div class="container-fluid">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                          <th scope="col">#</th>
+                          <th scope="col">Recommendation</th>
+                          <th scope="col">Using Items</th>
+                          <th scope="col">Recipe</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <th scope="row"></th>
+                            <td id="rec1"> </td>
+                            <td id="items1"> </td>
+                            <td>
+                                <a href="https://www.spendwithpennies.com/strawberry-banana-smoothie/">
+                                    <div>
+                                        <p id="recipe1"> </p>
+                                    </div>
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row"> </th>
+                            <td id="rec2"> </td>
+                            <td id="items2"> </td>
+                            <td>
+                                <a href="https://sallysbakingaddiction.com/best-banana-bread-recipe/">
+                                    <div>
+                                        <p id="recipe2">  </p>
+                                    </div>
+                                </a>
+                            </td>
+
+                        </tr>
+                    </tbody>
+                  </table>
+                </div>
+            </div>
+        </div>
 {% endblock %}
