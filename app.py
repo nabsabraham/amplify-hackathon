@@ -32,11 +32,11 @@ def upload_files():
     image_data = open(image_path, "rb").read()
 
     pic = Image.open(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-    img = np.array(pic.getdata()).reshape(pic.size[0], pic.size[1], 3)
+    #img = np.array(pic.getdata()).reshape(pic.size[0], pic.size[1], 3)
 
     cull_status = 'NO ACTION FOR COLLEAGUE'
     cull_location = 'NO ACTION FOR COLLEAGUE'
-    produce = get_produce(image_data)
+    produce = get_produce(image_data)  # vision system inference
     print(produce)
 
     mch_dict = {'APPLE': 'M02270101',
