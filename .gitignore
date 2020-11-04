@@ -8,4 +8,5 @@ app/env/*
 app/static/uploads/*.jpg
 __pycache__/
 .ipynb_checkpoints/
-.idea/*
+.idea/*.xml
+pitch/
