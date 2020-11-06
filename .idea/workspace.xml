@@ -4,9 +4,9 @@
     <list default="true" id="1579a28f-a6bb-460d-972b-ea61f2fa4683" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/waste.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/waste.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/img_classification_cognitiveservices_cv.ipynb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/azure/deploy-keras-model.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/azure/deploy-keras-model.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/azure/testEndpoint_withpillow.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/azure/testEndpoint_withpillow.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bananas_aisle.jpg" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,7 +24,16 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/images/static" />
+    </key>
   </component>
   <component name="SvnConfiguration">
     <configuration />
