@@ -1,11 +1,11 @@
 import os
-#import cv2
 import json
 import requests
 import numpy as np
 from PIL import Image
+from msrest.authentication import ApiKeyCredentials
+from azure.cognitiveservices.vision.customvision.prediction import CustomVisionPredictionClient
 
-#from keras.preprocessing import image
 
 from werkzeug.utils import secure_filename
 from flask import Flask, render_template, url_for, request, redirect, abort
@@ -53,17 +53,37 @@ def upload_files():
     except:
         article = 'M02270110'
 
-    rand_num = np.random.randint(2,7)
-    fresh_status = str(np.random.randint(1,7)) + ' DAYS TO END-OF-LIFE'
-    score = np.random.randint(70,99)
+    if produce.upper() == 'BANANA':
+        results, res_dict = banana_inference(image_path)
+        max_class = max(res_dict, key=res_dict.get)
+        max_prob = res_dict[max_class]
 
-    if rand_num < 5:
-        cull_status = 'COLLEAGUE TO CULL'
-        cull_location = 'SHELF 1, BIN 1'
+        if max_class == 'fresh':
+            fresh_status = 'PRIME'
+            score = np.round(res_dict['fresh'] * 100, 2)
+        elif max_class == 'ripe':
+            fresh_status = str(np.random.randint(1, 3)) + ' DAYS TO END-OF-LIFE'
+            score = np.round(res_dict['ripe'] * 100, 2)
+            cull_status = 'COLLEAGUE TO CULL'
+            cull_location = 'SHELF 2, BIN 1'
+        else:
+            fresh_status = 'PRODUCE IS CRITICAL'
+            score = np.round(res_dict['overripe'] * 100, 2)
+            cull_status = 'COLLEAGUE TO CULL ASAP'
+            cull_location = 'SHELF 1, BIN 1'
+
     else:
-        fresh_status = 'PRIME'
-        #cull_status = 'COLLEAGUE TO CULL'
-        #cull_location = 'SHELF 1, BIN 1'
+        rand_num = np.random.randint(2,7)
+        fresh_status = str(np.random.randint(1,7)) + ' DAYS TO END-OF-LIFE'
+        score = np.random.randint(70,99)
+
+        if rand_num < 5:
+            cull_status = 'COLLEAGUE TO CULL'
+            cull_location = 'SHELF 1, BIN 1'
+        else:
+            fresh_status = 'PRIME'
+            #cull_status = 'COLLEAGUE TO CULL'
+            #cull_location = 'SHELF 1, BIN 1'
 
     if filename[:4] == 'test':
         produce = 'BANANAS'
@@ -83,13 +103,24 @@ def recommend():
 def waste():
     return render_template('waste.html')
 
-def inference(img):
-    url = 'http://b790f0dc-11c1-41fb-8ccd-7f1f67567d49.westus.azurecontainer.io/score'
-    print(img.shape)
-    input_data = {'data': img.tolist()}
-    headers = {'Content-Type': 'application/json'}
-    response = requests.post(url, data=json.dumps(input_data), headers=headers)
-    return np.round(np.array(response.json())[0],2) * 100
+def banana_inference(image_path):
+    ENDPOINT = 'https://nabila-custom-vision.cognitiveservices.azure.com/'
+    prediction_credentials = ApiKeyCredentials(in_headers={"Prediction-key": 'ae5a8bbf373847948ec9cbdf13cdfaae'})
+    predictor = CustomVisionPredictionClient(ENDPOINT, prediction_credentials)
+    project_id = '909cc200-acfd-4738-a5d6-f46488b3921a'
+    publish_iteration_name = 'Iteration2'
+    res_dict={}
+    with open(image_path, "rb") as image_contents:
+        results = predictor.classify_image(
+            project_id, publish_iteration_name, image_contents.read())
+
+        # Display the results.
+        for prediction in results.predictions:
+            print("\t" + prediction.tag_name +
+                  ": {0:.2f}%".format(prediction.probability * 100))
+            res_dict[prediction.tag_name] = prediction.probability
+
+        return results, res_dict
 
 def get_produce(img):
     subscription_key = 'e6a8b2a993a04ec5aee19d8d890911ab'
